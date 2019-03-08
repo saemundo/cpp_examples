@@ -5,26 +5,22 @@
 // Copyright   : Your copyright notice
 // Description : Hello World and other small stuff for testing purposes in C++, Ansi-style
 //============================================================================
-
+#include "NonAction.h"
 #include <iostream>
 #include <stdlib.h>
+
 using namespace std;
 
-class CPP_Examples{
-private:
-	int dum;
-
-public:
-	CPP_Examples():dum(1){
-		cout << dum << endl;
-	}
-	void setDum(int i){
-		dum = i;
-	}
-	int getDum(){
-		return dum;
-	}
-};
+NonAction::NonAction() :
+		dum(1) {
+	cout << dum << endl;
+}
+void NonAction::setDum(int i) {
+	dum = i;
+}
+int NonAction::getDum() {
+	return dum;
+}
 
 
 

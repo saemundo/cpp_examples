@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cmath>
 #include "Dummy.h"
+#include "NonAction.h"
 using namespace std;
 
 int main() {
