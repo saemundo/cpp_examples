@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 using namespace std;
+float calc(float num1, float num2, char op);
 class Dummy
 {
 private:

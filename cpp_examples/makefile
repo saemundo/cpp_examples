@@ -1,17 +1,19 @@
 #
 # This is a simple makefile for this dummy project
 #
-CC := gcc
-SRCDIR := src
-BUILDER := build
-TARGET := bin/runner
+CFLAGS = -I. -Wall -ftest-coverage -fprofile-arcs
 
-SRCTEXT := cpp
-SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCTEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g
-INC := -I include
-
-$(TARGET): $(OBJECTS)
-	@echo " Linking... "
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
+bin/runner : build/main.o build/dummy.o build/nonaction.o
+	g++ -o bin/runner build/main.o build/dummy.o build/nonaction.o
+build/main.o : src/Main.cpp src/Dummy.h src/NonAction.h
+	g++ -c src/Main.cpp -o build/main.o
+build/dummy.o : src/Dummy.cpp src/Dummy.h
+	g++ -c src/Dummy.cpp -o build/dummy.o
+build/nonaction.o : src/NonAction.cpp src/NonAction.h
+	g++ -c src/NonAction.cpp -o build/nonaction.o
+bin/tests : build/tests-main.o build/dummy.o build/nonaction.o
+	g++ -o $@ $^ $(CFLAGS) -lm -lncurses -Os 
+build/tests-main.o : src/tests-main.cpp src/NonAction.h src/Dummy.h
+	g++ -c src/tests-main.cpp -o build/tests-main.o
+clean:
+	-rm bin/runner bin/tests build/*.o
